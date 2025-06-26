@@ -1,0 +1,1 @@
+<template><div class='p-6 text-xl'>Welcome to Nuxt Blog ✨</div></template>
