@@ -24,9 +24,9 @@ Features modern UI, authentication, and full CRUD operations.
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Live Demo
 
-> (Add screenshots of your dashboard here later)
+https://blog-dashboard-fawn.vercel.app
 
 ---
 
@@ -46,7 +46,7 @@ SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
 ```
 
 4. Start the dev server
-npm run dev
+`npm run dev`
 
 ---
 
@@ -59,5 +59,6 @@ npm run dev
 | UPDATE  | `auth.uid() = user_id` |
 | DELETE  | `auth.uid() = user_id` |
 
+---
 
 👩‍💻 Made with love by Elizaveta Stepanishina (https://github.com/stepaEliz)

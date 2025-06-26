@@ -33,7 +33,6 @@
           Posted on {{ formatDate(post.created_at) }}
         </p>
 
-        <!-- Кнопки -->
         <div class="absolute top-2 right-2 flex gap-2">
           <NuxtLink
             :to="`/edit/${post.id}`"
