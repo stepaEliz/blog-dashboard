@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col gap-3 p-4 rounded-xl shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-300 hover:scale-[1.02]"
+    class="flex flex-col gap-2 p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-300 hover:scale-[1.02]"
   >
     <!-- Title -->
     <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">

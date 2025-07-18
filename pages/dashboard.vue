@@ -46,7 +46,7 @@
       </div>
 
       <!-- Posts -->
-      <div v-else class="grid gap-6 md:grid-cols-2 mt-6">
+      <div v-else class="grid gap-6 md:grid-cols-2 mt-6 sm:px-4">
         <PostCard
           v-for="post in posts"
           :key="post.id"

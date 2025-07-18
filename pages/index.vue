@@ -11,7 +11,7 @@
         RLS.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center sm:items-center sm:justify-center">
         <NuxtLink
           to="/login"
           class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-all duration-150 cursor-pointer hover:scale-105"

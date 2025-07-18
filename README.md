@@ -2,7 +2,16 @@
 
 > A modern full‑stack blog built with Nuxt 3, Supabase, Tailwind CSS, and RLS.  
 > Demo live at: **https://blog-dashboard-fawn.vercel.app/**  
-> Source code: https://github.com/stepaEliz/blog-dashboard
+> Source code: https://github.com/stepaEliz/nuxt-blog-dashboard
+
+---
+
+## 🧩 About This Project
+
+This full-stack blog platform was built as a showcase of my skills in Vue/Nuxt development, modern UI design, and secure backend architecture using Supabase.  
+It includes full CRUD, RLS, authentication, image uploads, responsive design, and real production polish.
+
+→ I built this project to demonstrate my readiness for full-time or freelance front-end / fullstack roles in Canada or remotely.
 
 ---
 
