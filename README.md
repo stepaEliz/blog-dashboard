@@ -56,10 +56,11 @@ npm install
 ### 3. Configure environment variables
 Create a file .env in project root:
 
-# .env
+#### .env
+```bash
 NUXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
 NUXT_PUBLIC_SUPABASE_KEY=<anon-or-public-key>
-
+```
 
 ### 4. Run locally
 ```bash
@@ -89,8 +90,8 @@ Apply these policies in Supabase SQL Editor:
 ALTER POLICY "Guest full access"
   ON public.posts
   TO public
-  USING (auth.uid() = 'GUEST_USER_UUID'::uuid)
-  WITH CHECK (auth.uid() = 'GUEST_USER_UUID'::uuid);
+  USING (auth.uid() = '2308948d-568c-439b-9222-87a9540a65df'::uuid)
+  WITH CHECK (auth.uid() = '2308948d-568c-439b-9222-87a9540a65df'::uuid);
 
 -- 2) Users own-post CRUD
 ALTER POLICY "Users own-post access"
@@ -106,9 +107,6 @@ ALTER POLICY "Allow read"
   USING (true);
 
 ```
-
-Note: Replace GUEST_USER_UUID with the actual UUID of your guest account (found in Supabase Auth).
-
 ---
 
 ## 🎛 Usage
