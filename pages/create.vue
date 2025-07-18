@@ -1,14 +1,20 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4">
-    <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
-      <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+    <div
+      class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8"
+    >
+      <h2
+        class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center"
+      >
         Create a New Post
       </h2>
 
       <form @submit.prevent="submitPost" class="space-y-6">
         <!-- Title -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Title
           </label>
           <input
@@ -21,7 +27,9 @@
 
         <!-- Content -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Content
           </label>
           <textarea
@@ -34,7 +42,9 @@
 
         <!-- Image Upload -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Upload Image
           </label>
           <input
@@ -43,7 +53,12 @@
             @change="handleFileChange"
             class="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-blue-100 dark:file:bg-gray-700 file:text-blue-800 dark:file:text-gray-100 file:rounded-lg hover:file:bg-blue-200 dark:hover:file:bg-gray-600"
           />
-          <p v-if="uploading" class="text-sm text-gray-500 dark:text-gray-400 mt-2">Uploading...</p>
+          <p
+            v-if="uploading"
+            class="text-sm text-gray-500 dark:text-gray-400 mt-2"
+          >
+            Uploading...
+          </p>
         </div>
 
         <!-- Submit -->
@@ -60,12 +75,15 @@
 
 
 <script setup>
-definePageMeta({ middleware: "auth", title: "Create Post | Nuxt Blog"});
+definePageMeta({ middleware: "auth", title: "Create Post | Nuxt Blog" });
+useHead({
+  title: "Create Post | Nuxt Blog",
+});
 
-import { ref } from 'vue'
-import { useSupabaseClient, useSupabaseUser } from '#imports'
-import { nanoid } from 'nanoid'
-import { useToast } from '@/composables/useToast';
+import { ref } from "vue";
+import { useSupabaseClient, useSupabaseUser } from "#imports";
+import { nanoid } from "nanoid";
+import { useToast } from "@/composables/useToast";
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
@@ -123,7 +141,7 @@ const submitPost = async () => {
   console.log("🟢 Final image URL:", imageUrl.value);
 
   if (!user.value) {
-    toast.error('You must be logged in');
+    toast.error("You must be logged in");
     return;
   }
 

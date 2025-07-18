@@ -1,9 +1,12 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">
+  <div
+    class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8"
+  >
     <div class="max-w-5xl mx-auto">
-      
       <!-- Title and button -->
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+      <div
+        class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4"
+      >
         <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">
           My Posts
         </h1>
@@ -20,12 +23,16 @@
         v-if="user?.email === 'guest@demo.com'"
         class="mb-6 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200 px-4 py-3 text-sm rounded-md text-center"
       >
-        You are logged in as <strong class="text-blue-600 dark:text-blue-300">guest</strong>. Posts you create will be
-        public and visible to everyone.
+        You are logged in as
+        <strong class="text-blue-600 dark:text-blue-300">guest</strong>. Posts
+        you create will be public and visible to everyone.
       </div>
 
       <!-- Preloader -->
-      <div v-if="loading" class="text-center text-gray-500 dark:text-gray-400 py-12">
+      <div
+        v-if="loading"
+        class="text-center text-gray-500 dark:text-gray-400 py-12"
+      >
         Loading...
       </div>
 
@@ -57,9 +64,12 @@
 
 <script setup>
 import PostCard from "@/components/PostCard.vue";
-import { useToast } from '@/composables/useToast'
+import { useToast } from "@/composables/useToast";
 
-definePageMeta({ middleware: "auth", title: "Dashboard | Nuxt Blog"});
+definePageMeta({ middleware: "auth", title: "Dashboard | Nuxt Blog" });
+useHead({
+  title: "Dashboard | Nuxt Blog",
+});
 
 import { useSupabaseClient, useSupabaseUser } from "#imports";
 import { ref, onMounted, watchEffect } from "vue";
@@ -72,7 +82,7 @@ const router = useRouter();
 const posts = ref([]);
 const loading = ref(true);
 
-const toast = useToast()
+const toast = useToast();
 
 const fetchPosts = async () => {
   loading.value = true;
@@ -104,7 +114,7 @@ const deletePost = async (id) => {
     return;
   }
 
-  toast.success('✅ Post deleted')
+  toast.success("✅ Post deleted");
 
   posts.value = posts.value.filter((post) => post.id !== id);
 };

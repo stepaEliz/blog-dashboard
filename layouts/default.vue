@@ -73,12 +73,22 @@
 </template>
 
 <script setup>
-import Toast from '@/components/Toast.vue'
+import Toast from "@/components/Toast.vue";
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
 const router = useRouter();
 const { dark, toggle } = useDarkMode();
-const { toasts } = useToastStore()
+const { toasts } = useToastStore();
+
+useHead({
+  titleTemplate: "%s",
+  meta: [
+    {
+      name: "description",
+      content: "A fullstack blog powered by Nuxt and Supabase",
+    },
+  ],
+});
 
 const handleLogout = async () => {
   const confirmed = confirm("Are you sure you want to log out?");

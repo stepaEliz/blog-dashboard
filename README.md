@@ -1,64 +1,138 @@
-# My Blog Dashboard ✨
+# Nuxt Blog Demo 🚀
 
-A fullstack Nuxt 3 + Supabase app for managing personal posts.  
-Features modern UI, authentication, and full CRUD operations.
-
----
-
-## ✨ Features
-
-- 🧑‍💻 **Authentication** (register, login, logout)
-- 🧠 **Row-Level Security (RLS)** via Supabase policies
-- ✍️ **Create / Edit / Delete** your own posts
-- 📋 **Dashboard** with list of your posts
-- 💅 **Modern UI** with Tailwind CSS
-- 🌙 **Protected routes** (only logged-in users can access dashboard)
+> A modern full‑stack blog built with Nuxt 3, Supabase, Tailwind CSS, and RLS.  
+> Demo live at: **https://blog-dashboard-fawn.vercel.app/**  
+> Source code: https://github.com/stepaEliz/blog-dashboard
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Screenshots
 
-- [Nuxt 3](https://nuxt.com)
-- [Supabase](https://supabase.com)
-- [Tailwind CSS](https://tailwindcss.com)
+![Home – Landing Page](./assets/screenshots/home-light.png)
+![Home – Dark Mode](./assets/screenshots/home-dark.png)
+![Dashboard](./assets/screenshots/dashboard.png)
+![Create Post](./assets/screenshots/create-post.png)
+![Post Detail](./assets/screenshots/post-detail.png)
 
 ---
 
-## 🖼️ Live Demo
+## ⭐ Features
 
-https://blog-dashboard-fawn.vercel.app
+- ✅ Email/password authentication + “Login as Guest”  
+- 🔐 Row‑level security (RLS): users see only their posts, guest sees all  
+- 📝 CRUD: create, read, update, delete posts  
+- 🖼 Image upload via Supabase Storage  
+- 🎨 Light & Dark themes with toggle  
+- 📱 Responsive design  
+- 🌐 Public landing page with recent posts feed  
+- 🔗 Shareable post URLs (`/posts/:id`)
+
+---
+
+## 🛠 Tech Stack
+
+- **Nuxt 3** (Vue 3 + Vite)  
+- **Supabase** (Auth, RLS, Storage, Database)  
+- **Tailwind CSS** (+ `@tailwindcss/line-clamp`)  
+- **nanoid** for unique filenames  
+- **Vue Transition** for animations  
+- **GitHub Actions** (optional, for CI/CD)
 
 ---
 
 ## 🚀 Getting Started
 
-1. Clone the repo  
-   `git clone https://github.com/stepaEliz/blog-dashboard.git`
-
-2. Install dependencies  
-   `npm install`
-
-3. Create `.env` file:
-
-```env
-SUPABASE_URL=https://zjbhcodnizzcxvfqvvso.supabase.co
-SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqYmhjb2RuaXp6Y3h2ZnF2dnNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxMTUwMzUsImV4cCI6MjA2NTY5MTAzNX0.MxfxQujAkauyhQ0C68lYHbjwqVernkOxCRLzQwvRWsE
+### 1. Clone the repo
+```bash
+git clone https://github.com/stepaEliz/blog-dashboard.git
+cd blog-dashboard
 ```
 
-4. Start the dev server
-`npm run dev`
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+Create a file .env in project root:
+
+# .env
+NUXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NUXT_PUBLIC_SUPABASE_KEY=<anon-or-public-key>
+
+
+### 4. Run locally
+```bash
+npm run dev
+```
+Open http://localhost:3000 in your browser.
 
 ---
 
-## ✅ RLS Policies Used
+## 🔒 RLS Policies
 
-| Action  | Rule                   |
-|---------|------------------------|
-| SELECT  | `auth.uid() = user_id` |
-| INSERT  | `auth.uid() = user_id` |
-| UPDATE  | `auth.uid() = user_id` |
-| DELETE  | `auth.uid() = user_id` |
+We have two types of users:
+
+1. **Guest user** (`guest@demo.com`):  
+   - Can **create**, **read**, **update**, **delete** **any** post  
+     (great for quick demo and testing without signup)
+
+2. **Registered users**:  
+   - Can **read all** posts (public feed)  
+   - Can **create** new posts  
+   - Can **update** or **delete** **only their own** posts (Dashboard)
+
+Apply these policies in Supabase SQL Editor:
+
+```sql
+-- 1) Guest full CRUD
+ALTER POLICY "Guest full access"
+  ON public.posts
+  TO public
+  USING (auth.uid() = 'GUEST_USER_UUID'::uuid)
+  WITH CHECK (auth.uid() = 'GUEST_USER_UUID'::uuid);
+
+-- 2) Users own-post CRUD
+ALTER POLICY "Users own-post access"
+  ON public.posts
+  TO public
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+-- 3) Public read for everyone
+ALTER POLICY "Allow read"
+  ON public.posts
+  TO public
+  USING (true);
+
+```
+
+Note: Replace GUEST_USER_UUID with the actual UUID of your guest account (found in Supabase Auth).
 
 ---
 
-👩‍💻 Made with love by Elizaveta Stepanishina (https://github.com/stepaEliz)
+## 🎛 Usage
+
+1. Login with your email/password
+
+2. Login as Guest (guest@demo.com / 12345678)
+
+3. Dashboard shows your posts (guest sees all)
+
+4. Create a post with title, content, and optional image
+
+5. Edit/Delete only what you own (guest can edit/delete any post)
+
+6. Dark Mode toggle in header
+
+---
+
+## 💬 Contributing
+Feel free to open issues or pull requests.
+For major changes, please open an issue first to discuss.
+
+---
+
+## 📄 License
+[MIT](https://choosealicense.com/licenses/mit/) © Elizaveta Stepanishina
+

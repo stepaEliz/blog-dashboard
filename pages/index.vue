@@ -1,17 +1,20 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+  <div
+    class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8 transition-colors duration-300"
+  >
     <div class="max-w-4xl mx-auto text-center mb-12">
       <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">
         Welcome to Nuxt Blog ✨
       </h1>
       <p class="text-gray-600 dark:text-gray-300 text-lg mb-6">
-        A modern fullstack blog built with Nuxt 3, Supabase, Tailwind CSS, and RLS.
+        A modern fullstack blog built with Nuxt 3, Supabase, Tailwind CSS, and
+        RLS.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <NuxtLink
           to="/login"
-          class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-all duration-150 cursor-pointer"
+          class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-all duration-150 cursor-pointer hover:scale-105"
         >
           Login
         </NuxtLink>
@@ -31,7 +34,10 @@
         Recent Posts
       </h2>
 
-      <div v-if="loading" class="text-center text-gray-500 dark:text-gray-400 py-12">
+      <div
+        v-if="loading"
+        class="text-center text-gray-500 dark:text-gray-400 py-12"
+      >
         Loading posts...
       </div>
 
@@ -40,7 +46,14 @@
         class="text-center text-gray-700 dark:text-gray-300 py-12 space-y-2"
       >
         <p class="text-xl font-medium">No posts available yet.</p>
-        <p class="text-sm">Be the first to <NuxtLink to="/create" class="text-blue-600 dark:text-blue-400 hover:underline">create one</NuxtLink>!</p>
+        <p class="text-sm">
+          Be the first to
+          <NuxtLink
+            to="/create"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+            >create one</NuxtLink
+          >!
+        </p>
       </div>
 
       <div v-else class="grid gap-6 md:grid-cols-2 mt-6">
@@ -76,30 +89,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useSupabaseClient, useRouter } from '#imports'
-definePageMeta({ layout: 'clean', title: 'Welcome | Nuxt Blog' })
+import { ref, onMounted } from "vue";
+import { useSupabaseClient, useRouter } from "#imports";
+definePageMeta({ layout: "clean", title: "Welcome | Nuxt Blog" });
 
-const supabase = useSupabaseClient()
-const router = useRouter()
-const posts = ref([])
-const loading = ref(true)
+useHead({
+  title: "Nuxt Blog — Fullstack Demo with Supabase",
+});
+
+const supabase = useSupabaseClient();
+const router = useRouter();
+const posts = ref([]);
+const loading = ref(true);
 
 onMounted(async () => {
   const { data, error } = await supabase
-    .from('posts')
-    .select('id, title, content, image_url')
-    .order('created_at', { ascending: false })
+    .from("posts")
+    .select("id, title, content, image_url")
+    .order("created_at", { ascending: false });
 
-  if (!error) posts.value = data
-  loading.value = false
-})
+  if (!error) posts.value = data;
+  loading.value = false;
+});
 
 const loginAsGuest = async () => {
   const { error } = await supabase.auth.signInWithPassword({
-    email: 'guest@demo.com',
-    password: '12345678'
-  })
-  if (!error) router.push('/dashboard')
-}
+    email: "guest@demo.com",
+    password: "12345678",
+  });
+  if (!error) router.push("/dashboard");
+};
 </script>

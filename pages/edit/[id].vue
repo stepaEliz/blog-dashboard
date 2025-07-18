@@ -1,8 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4">
-    <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
-
-      <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+    <div
+      class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-8"
+    >
+      <h2
+        class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center"
+      >
         Edit Post
       </h2>
 
@@ -18,7 +21,9 @@
       <form v-if="loaded" @submit.prevent="updatePost" class="space-y-6">
         <!-- Title -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Title
           </label>
           <input
@@ -30,7 +35,9 @@
 
         <!-- Content -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Content
           </label>
           <textarea
@@ -42,7 +49,9 @@
 
         <!-- Image -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Upload Image
           </label>
           <input
@@ -53,8 +62,13 @@
           />
 
           <div v-if="imageUrl" class="mt-4">
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Current Image:</p>
-            <img :src="imageUrl" class="rounded-lg shadow w-full max-h-64 object-contain border border-gray-200 dark:border-gray-700" />
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              Current Image:
+            </p>
+            <img
+              :src="imageUrl"
+              class="rounded-lg shadow w-full max-h-64 object-contain border border-gray-200 dark:border-gray-700"
+            />
           </div>
         </div>
 
@@ -65,7 +79,6 @@
         >
           Save Changes
         </button>
-
       </form>
     </div>
   </div>
@@ -73,12 +86,15 @@
 
 
 <script setup>
-definePageMeta({ middleware: "auth", title: "Edit Post | Nuxt Blog"});
+definePageMeta({ middleware: "auth", title: "Edit Post | Nuxt Blog" });
+useHead({
+  title: "Edit Post | Nuxt Blog",
+});
 
 import { useRoute, useRouter } from "vue-router";
 import { useSupabaseClient, useSupabaseUser } from "#imports";
 import { ref, onMounted } from "vue";
-import { useToast } from '@/composables/useToast'
+import { useToast } from "@/composables/useToast";
 
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();
@@ -92,8 +108,8 @@ const successMessage = ref("");
 const errorMessage = ref("");
 const loaded = ref(false);
 const accessDenied = ref(false);
-const imageUrl = ref("")
-let newFile = null
+const imageUrl = ref("");
+let newFile = null;
 
 const postId = route.params.id;
 
@@ -114,34 +130,34 @@ onMounted(async () => {
   title.value = data.title;
   content.value = data.content;
   loaded.value = true;
-  imageUrl.value = data.image_url || ""
+  imageUrl.value = data.image_url || "";
 });
 
 const updatePost = async () => {
-  let uploadedImageUrl = imageUrl.value
+  let uploadedImageUrl = imageUrl.value;
 
   if (newFile) {
-    const fileExt = newFile.name.split(".").pop()
-    const fileName = `${Date.now()}.${fileExt}`
-    const filePath = `posts/${fileName}`
+    const fileExt = newFile.name.split(".").pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `posts/${fileName}`;
 
     const { error: uploadError } = await supabase.storage
       .from("post-images")
       .upload(filePath, newFile, {
         cacheControl: "3600",
         upsert: true,
-      })
+      });
 
     if (uploadError) {
-      toast.error(uploadError.message)
-      return
+      toast.error(uploadError.message);
+      return;
     }
 
     const { data: publicUrlData } = supabase.storage
       .from("post-images")
-      .getPublicUrl(filePath)
+      .getPublicUrl(filePath);
 
-    uploadedImageUrl = publicUrlData.publicUrl
+    uploadedImageUrl = publicUrlData.publicUrl;
   }
 
   const { error } = await supabase
@@ -151,20 +167,19 @@ const updatePost = async () => {
       content: content.value,
       image_url: uploadedImageUrl,
     })
-    .eq("id", postId)
+    .eq("id", postId);
 
   if (error) {
-    toast.error(error.message)
+    toast.error(error.message);
   } else {
-    toast.success("Post updated successfully!")
-    setTimeout(() => router.push("/dashboard"), 1000)
+    toast.success("Post updated successfully!");
+    setTimeout(() => router.push("/dashboard"), 1000);
   }
-}
-
+};
 
 const handleFileChange = (e) => {
-  const file = e.target.files[0]
-  if (!file) return
-  newFile = file
-}
+  const file = e.target.files[0];
+  if (!file) return;
+  newFile = file;
+};
 </script>

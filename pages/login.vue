@@ -52,8 +52,12 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "#app";
-import { useToast } from '@/composables/useToast'
+import { useToast } from "@/composables/useToast";
 definePageMeta({ layout: "clean", title: "Login | Nuxt Blog" });
+
+useHead({
+  title: "Login | Nuxt Blog",
+});
 
 const supabase = useSupabaseClient();
 const router = useRouter();
