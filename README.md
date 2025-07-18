@@ -53,8 +53,8 @@ It includes full CRUD, RLS, authentication, image uploads, responsive design, an
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/stepaEliz/blog-dashboard.git
-cd blog-dashboard
+git clone https://github.com/stepaEliz/nuxt-blog-dashboard.git
+cd nuxt-blog-dashboard
 ```
 
 ### 2. Install dependencies
