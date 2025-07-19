@@ -1,4 +1,3 @@
-
 export default defineNuxtRouteMiddleware(async (to) => {
   await useSupabaseUser().value?.getSession?.()
 
