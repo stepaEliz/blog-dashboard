@@ -1,6 +1,6 @@
 # Nuxt Blog Demo 🚀
 Modern full-stack blog built with Nuxt 3, Supabase, Tailwind CSS, and Row-Level Security (RLS).<br />
-Live Demo: blog-dashboard-fawn.vercel.app<br />
+[Live Demo](https://blog-dashboard-fawn.vercel.app/)<br />
 Guest Login: guest@demo.com / 12345678<br />
 Source Code: [GitHub Repo](https://github.com/stepaEliz/nuxt-blog-dashboard)
 
