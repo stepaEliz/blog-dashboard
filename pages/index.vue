@@ -11,7 +11,9 @@
         RLS.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center sm:items-center sm:justify-center">
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center sm:items-center sm:justify-center"
+      >
         <NuxtLink
           to="/login"
           class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-all duration-150 cursor-pointer hover:scale-105"
@@ -60,7 +62,7 @@
         <div
           v-for="post in posts"
           :key="post.id"
-          class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition duration-200 hover:scale-105"
+          class="w-full sm:w-auto bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition duration-200 hover:scale-105"
         >
           <h3 class="text-xl font-semibold mb-2">
             {{ post.title }}
@@ -91,10 +93,17 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useSupabaseClient, useRouter } from "#imports";
-definePageMeta({ layout: "clean", title: "Welcome | Nuxt Blog" });
+definePageMeta({ layout: "clean" });
 
 useHead({
-  title: "Nuxt Blog — Fullstack Demo with Supabase",
+  title: "Welcome to Nuxt Blog — Fullstack Demo with Supabase",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Explore public posts or login as a guest to test full CRUD with Supabase and Nuxt 3.",
+    },
+  ],
 });
 
 const supabase = useSupabaseClient();

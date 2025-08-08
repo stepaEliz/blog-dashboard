@@ -53,10 +53,16 @@
 import { ref } from "vue";
 import { useRouter } from "#app";
 import { useToast } from "@/composables/useToast";
-definePageMeta({ layout: "clean", title: "Login | Nuxt Blog" });
+definePageMeta({ layout: "clean" });
 
 useHead({
   title: "Login | Nuxt Blog",
+  meta: [
+    {
+      name: "description",
+      content: "Login to your Nuxt Blog account or try the app as a guest user.",
+    },
+  ],
 });
 
 const supabase = useSupabaseClient();

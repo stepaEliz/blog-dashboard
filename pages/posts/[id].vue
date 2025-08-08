@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+  <div
+    class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900"
+  >
     <div class="max-w-3xl mx-auto">
       <!-- Loading -->
       <div
@@ -50,8 +52,6 @@ import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useSupabaseClient } from "#imports";
 
-definePageMeta({ middleware: "auth", title: "View Post | Nuxt Blog" });
-
 const route = useRoute();
 const supabase = useSupabaseClient();
 
@@ -68,9 +68,13 @@ onMounted(async () => {
   if (!error) {
     post.value = data;
     useHead({
-      title: post.value?.title
-        ? `${post.value.title} | Nuxt Blog`
-        : "Post | Nuxt Blog",
+      title: post?.title ? `${post.title} | Nuxt Blog` : "Post | Nuxt Blog",
+      meta: [
+        {
+          name: "description",
+          content: post?.content?.slice(0, 160) || "Post detail in Nuxt Blog.",
+        },
+      ],
     });
   }
   loading.value = false;

@@ -75,9 +75,14 @@
 
 
 <script setup>
-definePageMeta({ middleware: "auth", title: "Create Post | Nuxt Blog" });
 useHead({
   title: "Create Post | Nuxt Blog",
+  meta: [
+    {
+      name: "description",
+      content: "Write a new post with a title, content, and optional image.",
+    },
+  ],
 });
 
 import { ref } from "vue";

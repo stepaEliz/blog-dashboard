@@ -86,7 +86,7 @@
 
 
 <script setup>
-definePageMeta({ middleware: "auth", title: "Edit Post | Nuxt Blog" });
+definePageMeta({ title: "Edit Post | Nuxt Blog" });
 useHead({
   title: "Edit Post | Nuxt Blog",
 });

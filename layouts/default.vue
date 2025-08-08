@@ -1,30 +1,17 @@
 <template>
-  <div
-    class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
-  >
+  <div v-if="initialized" class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
     <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 shadow">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4"
-      >
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow transition-colors">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
         <!-- Left block -->
         <div class="flex items-center gap-6">
-          <NuxtLink
-            to="/"
-            class="text-xl font-bold text-blue-600 dark:text-blue-400 hover:underline"
-          >
+          <NuxtLink to="/" class="text-xl font-bold text-blue-600 dark:text-blue-400 hover:underline">
             Nuxt Blog
           </NuxtLink>
-          <NuxtLink
-            to="/dashboard"
-            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-          >
+          <NuxtLink to="/dashboard" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium hover:underline">
             Dashboard
           </NuxtLink>
-          <NuxtLink
-            to="/create"
-            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
-          >
+          <NuxtLink to="/create" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium hover:underline">
             Create
           </NuxtLink>
         </div>
@@ -74,21 +61,50 @@
 
 <script setup>
 import Toast from "@/components/Toast.vue";
+import { ref, computed, onMounted } from "vue";
+import { useSupabaseClient, useSupabaseUser } from "#imports";
+
 const supabase = useSupabaseClient();
-const user = useSupabaseUser();
+const _user = useSupabaseUser();
+const user = computed(() => _user.value); // safe computed
 const router = useRouter();
 const { dark, toggle } = useDarkMode();
 const { toasts } = useToastStore();
 
-useHead({
-  titleTemplate: "%s",
-  meta: [
-    {
-      name: "description",
-      content: "A fullstack blog powered by Nuxt and Supabase",
-    },
-  ],
+// flag waiting for session restoration
+const initialized = ref(false);
+
+onMounted(async () => {
+  await supabase.auth.getSession(); // restore session
+  initialized.value = true;
 });
+
+useHead({
+  titleTemplate: '%s',
+  meta: [
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: 'A fullstack blog powered by Nuxt and Supabase with public guest login' },
+
+    // Open Graph
+    { property: 'og:title', content: 'Nuxt Blog Demo' },
+    { property: 'og:description', content: 'A fullstack blog powered by Nuxt and Supabase with guest mode' },
+    { property: 'og:image', content: 'https://blog-dashboard-fawn.vercel.app/og-image.png' },
+    { property: 'og:url', content: 'https://blog-dashboard-fawn.vercel.app' },
+    { property: 'og:type', content: 'website' },
+
+    // Twitter Card
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Nuxt Blog Demo' },
+    { name: 'twitter:description', content: 'A fullstack blog powered by Nuxt and Supabase with guest login' },
+    { name: 'twitter:image', content: 'https://blog-dashboard-fawn.vercel.app/og-image.png' },
+
+    // Fallback
+    { name: 'theme-color', content: '#0ea5e9' },
+  ],
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+  ],
+})
 
 const handleLogout = async () => {
   const confirmed = confirm("Are you sure you want to log out?");

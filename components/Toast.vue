@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="visible"
-    class="fixed bottom-6 right-6 w-80 z-50 flex items-center p-4 rounded-lg shadow-lg
+    class="fixed bottom-4 right-4 w-80 z-50 flex items-center p-4 rounded-lg shadow-lg
            bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all transform
            duration-300"
     :class="typeClasses"
@@ -32,7 +32,7 @@ const typeClasses = computed(() => ({
   'bg-blue-100 dark:bg-blue-900': props.type === 'info',
 }))
 
-// Авто-скрытие
+// Auto-hide
 watchEffect((onInvalidate) => {
   const timer = setTimeout(() => (visible.value = false), props.duration)
   onInvalidate(() => clearTimeout(timer))

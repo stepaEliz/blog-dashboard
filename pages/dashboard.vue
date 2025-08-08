@@ -69,6 +69,12 @@ import { useToast } from "@/composables/useToast";
 definePageMeta({ middleware: "auth", title: "Dashboard | Nuxt Blog" });
 useHead({
   title: "Dashboard | Nuxt Blog",
+  meta: [
+    {
+      name: "description",
+      content: "View and manage your posts in the Nuxt Blog dashboard.",
+    },
+  ],
 });
 
 import { useSupabaseClient, useSupabaseUser } from "#imports";
