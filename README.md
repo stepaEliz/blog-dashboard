@@ -1,7 +1,7 @@
 # Nuxt Blog Demo 🚀
-Modern full-stack blog built with Nuxt 3, Supabase, Tailwind CSS, and Row-Level Security (RLS).
-Live Demo: blog-dashboard-fawn.vercel.app
-Guest Login: guest@demo.com / 12345678
+Modern full-stack blog built with Nuxt 3, Supabase, Tailwind CSS, and Row-Level Security (RLS).<br />
+Live Demo: blog-dashboard-fawn.vercel.app<br />
+Guest Login: guest@demo.com / 12345678<br />
 Source Code: [GitHub Repo](https://github.com/stepaEliz/nuxt-blog-dashboard)
 
 ---
@@ -26,9 +26,9 @@ I built it to demonstrate my readiness for frontend/fullstack developer roles in
 
 ## ⭐ Features
 1. 🔑 Email/password authentication + Login as Guest
-2. 🔐 Row-level security:
-1) Users see only their own posts
-2) Guest sees all posts
+2. 🔐 Row-level security:<br />
+    a. Users see only their own posts<br />
+    b. Guest sees all posts<br />
 3. 📝 Full CRUD: create, read, update, delete
 4. 🖼 Image uploads via Supabase Storage
 5. 🎨 Light/Dark theme toggle
